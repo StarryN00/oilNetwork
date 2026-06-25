@@ -4,7 +4,8 @@ import {
   classifyOrderIncrement,
   getCampaignEffect,
   getReconciliationDetail,
-  getStationDashboard
+  getStationDashboard,
+  getStationMonthlyReport
 } from "./metrics";
 
 describe("metrics", () => {
@@ -54,5 +55,15 @@ describe("metrics", () => {
         .filter((order) => order.stationId === "st-001" && order.payStatus === "paid")
         .reduce((sum, order) => sum + order.paidAmount, 0)
     );
+  });
+
+  it("builds station monthly report with enterprise and fuel summaries", () => {
+    const report = getStationMonthlyReport(seedData, "st-001", "2026-06");
+    expect(report.totalOrders).toBe(
+      seedData.orders.filter((order) => order.stationId === "st-001" && order.payStatus === "paid").length
+    );
+    expect(report.enterprises[0].amount).toBeGreaterThan(0);
+    expect(report.fuels[0].liters).toBeGreaterThan(0);
+    expect(report.averageDiscountPerLiter).toBeGreaterThan(0);
   });
 });

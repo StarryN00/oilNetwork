@@ -106,3 +106,51 @@ export function getReconciliationDetail(data: AppData, reconciliationId: string)
     totalLiters: orders.reduce((sum, order) => sum + order.liters, 0)
   };
 }
+
+export function getStationMonthlyReport(data: AppData, stationId: string, month = "2026-06") {
+  const orders = paidOrders(data).filter((order) => order.stationId === stationId && order.tradeTime.startsWith(month));
+  const enterpriseMap = new Map<string, { name: string; amount: number; liters: number; orders: number }>();
+  const fuelMap = new Map<string, { fuelType: string; amount: number; liters: number; orders: number }>();
+  const invoiceMap = new Map<string, number>();
+  const incrementMap = new Map<IncrementType, number>();
+
+  for (const order of orders) {
+    const enterpriseName = data.enterprises.find((enterprise) => enterprise.id === order.enterpriseId)?.name ?? "未知企业";
+    const enterprise = enterpriseMap.get(order.enterpriseId) ?? { name: enterpriseName, amount: 0, liters: 0, orders: 0 };
+    enterprise.amount += order.paidAmount;
+    enterprise.liters += order.liters;
+    enterprise.orders += 1;
+    enterpriseMap.set(order.enterpriseId, enterprise);
+
+    const fuel = fuelMap.get(order.fuelType) ?? { fuelType: order.fuelType, amount: 0, liters: 0, orders: 0 };
+    fuel.amount += order.paidAmount;
+    fuel.liters += order.liters;
+    fuel.orders += 1;
+    fuelMap.set(order.fuelType, fuel);
+
+    invoiceMap.set(order.invoiceStatus, (invoiceMap.get(order.invoiceStatus) ?? 0) + 1);
+    const increment = classifyOrderIncrement(data, order);
+    incrementMap.set(increment, (incrementMap.get(increment) ?? 0) + 1);
+  }
+
+  const totalAmount = orders.reduce((sum, order) => sum + order.paidAmount, 0);
+  const totalDiscount = orders.reduce((sum, order) => sum + order.discountAmount, 0);
+  const totalLiters = orders.reduce((sum, order) => sum + order.liters, 0);
+  const abnormalCount = data.abnormalEvents.filter((event) => event.stationId === stationId && event.createdAt.startsWith(month)).length;
+
+  return {
+    month,
+    orders,
+    totalOrders: orders.length,
+    totalAmount,
+    totalDiscount,
+    totalLiters,
+    averageTicket: orders.length ? totalAmount / orders.length : 0,
+    averageDiscountPerLiter: totalLiters ? totalDiscount / totalLiters : 0,
+    abnormalCount,
+    enterprises: Array.from(enterpriseMap.values()).sort((a, b) => b.amount - a.amount),
+    fuels: Array.from(fuelMap.values()).sort((a, b) => b.amount - a.amount),
+    invoiceBreakdown: Array.from(invoiceMap.entries()).map(([status, count]) => ({ status, count })),
+    incrementBreakdown: Array.from(incrementMap.entries()).map(([type, count]) => ({ type, count }))
+  };
+}
