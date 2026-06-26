@@ -8,18 +8,14 @@ export function StationProfile({ stationId }: { stationId: string }) {
   return (
     <section className="mobile-card form-card">
       <h3>油站资料</h3>
-      <p>资料提交后直接生效，企油通后台可纠错或下架。</p>
+      <p>维护油站经营资料；账号、角色和登录信息已移到“我的”。</p>
       <label className="field">
         <span>油站名称</span>
         <input value={station.name} onChange={(event) => dispatch({ type: "updateStation", stationId, patch: { name: event.target.value } })} />
       </label>
       <label className="field">
-        <span>联系人</span>
-        <input value={station.contactName} onChange={(event) => dispatch({ type: "updateStation", stationId, patch: { contactName: event.target.value } })} />
-      </label>
-      <label className="field">
-        <span>联系电话</span>
-        <input value={station.contactPhone} onChange={(event) => dispatch({ type: "updateStation", stationId, patch: { contactPhone: event.target.value } })} />
+        <span>油站地址</span>
+        <input value={station.address} onChange={(event) => dispatch({ type: "updateStation", stationId, patch: { address: event.target.value } })} />
       </label>
       <label className="field">
         <span>营业时间</span>

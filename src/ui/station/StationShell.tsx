@@ -1,4 +1,4 @@
-import { ClipboardList, Fuel, Home, ReceiptText, Tags } from "lucide-react";
+import { ClipboardList, Fuel, Home, ReceiptText, Tags, UserRound } from "lucide-react";
 import { useState } from "react";
 import { useAppState } from "../../state/AppState";
 import { StationCampaigns } from "./StationCampaigns";
@@ -6,13 +6,15 @@ import { StationDashboard } from "./StationDashboard";
 import { StationOrdersBills } from "./StationOrdersBills";
 import { StationProducts } from "./StationProducts";
 import { StationProfile } from "./StationProfile";
+import { StationAccount } from "./StationAccount";
 
 const tabs = [
   { id: "home", label: "首页", icon: Home },
   { id: "profile", label: "资料", icon: ClipboardList },
   { id: "products", label: "油品", icon: Fuel },
   { id: "campaigns", label: "优惠", icon: Tags },
-  { id: "bills", label: "账单", icon: ReceiptText }
+  { id: "bills", label: "账单", icon: ReceiptText },
+  { id: "account", label: "我的", icon: UserRound }
 ] as const;
 
 type StationTab = (typeof tabs)[number]["id"];
@@ -43,6 +45,7 @@ export function StationShell() {
           {tab === "products" && <StationProducts stationId={station.id} />}
           {tab === "campaigns" && <StationCampaigns stationId={station.id} />}
           {tab === "bills" && <StationOrdersBills stationId={station.id} />}
+          {tab === "account" && <StationAccount stationId={station.id} />}
         </main>
         <nav className="station-tabs">
           {tabs.map((item) => {
