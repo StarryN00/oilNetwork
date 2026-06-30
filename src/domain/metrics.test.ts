@@ -1,9 +1,12 @@
 import { describe, expect, it } from "vitest";
 import { seedData } from "./mockData";
 import {
+  calculateVisibleFuelPrice,
   classifyOrderIncrement,
+  getApplicableDiscount,
   getCampaignEffect,
   getReconciliationDetail,
+  getStationPriceSettings,
   getStationDashboard,
   getStationMonthlyReport
 } from "./metrics";
@@ -65,5 +68,21 @@ describe("metrics", () => {
     expect(report.enterprises[0].amount).toBeGreaterThan(0);
     expect(report.fuels[0].liters).toBeGreaterThan(0);
     expect(report.averageDiscountPerLiter).toBeGreaterThan(0);
+  });
+
+  it("shows default fuel price settings for every station and supports disabled fuels", () => {
+    const settings = getStationPriceSettings(seedData, "st-001");
+    expect(settings.map((item) => item.fuelType)).toEqual(["0# 柴油", "-10# 柴油", "92# 汽油", "95# 汽油", "98# 汽油", "车用尿素", "LNG"]);
+    expect(settings.find((item) => item.fuelType === "98# 汽油")?.active).toBe(false);
+  });
+
+  it("uses enterprise specific discount before universal discount for visible driver price", () => {
+    const universal = getApplicableDiscount(seedData, "st-001", "0# 柴油");
+    const enterprise = getApplicableDiscount(seedData, "st-001", "0# 柴油", "ent-001");
+    expect(universal?.discountValue).toBe(3);
+    expect(enterprise?.discountValue).toBe(5);
+    expect(calculateVisibleFuelPrice(seedData, "st-001", "0# 柴油", "ent-001")).toBeCloseTo(6.65);
+    expect(calculateVisibleFuelPrice(seedData, "st-001", "0# 柴油", "ent-004")).toBeCloseTo(6.79);
+    expect(calculateVisibleFuelPrice(seedData, "st-001", "98# 汽油")).toBeUndefined();
   });
 });

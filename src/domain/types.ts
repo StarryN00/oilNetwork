@@ -1,6 +1,7 @@
 export type StationStatus = "active" | "pending" | "paused" | "offline";
 export type CampaignStatus = "draft" | "pending_review" | "published" | "rejected" | "paused" | "ended";
-export type DiscountType = "per_liter" | "full_reduction" | "fixed";
+export type DiscountType = "percentage" | "per_liter" | "full_reduction" | "fixed";
+export type CampaignAudienceType = "universal" | "enterprise";
 export type PayStatus = "paid" | "pending" | "refunded";
 export type InvoiceStatus = "not_required" | "pending" | "issued" | "delayed" | "failed";
 export type ReconciliationStatus = "pending_station" | "confirmed" | "disputed" | "exported";
@@ -41,6 +42,7 @@ export interface Campaign {
   fuelType: string;
   discountType: DiscountType;
   discountValue: number;
+  audienceType: CampaignAudienceType;
   targetScope: string;
   targetEnterpriseIds: string[];
   targetRouteIds: string[];

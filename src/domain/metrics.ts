@@ -1,6 +1,8 @@
-import type { AppData, Campaign, FuelOrder, IncrementType, Reconciliation } from "./types";
+import type { AppData, Campaign, FuelOrder, FuelProduct, IncrementType, Reconciliation } from "./types";
 
 const paidOrders = (data: AppData) => data.orders.filter((order) => order.payStatus === "paid");
+
+export const DEFAULT_FUEL_TYPES = ["0# 柴油", "-10# 柴油", "92# 汽油", "95# 汽油", "98# 汽油", "车用尿素", "LNG"];
 
 export function formatCurrency(value: number) {
   return new Intl.NumberFormat("zh-CN", {
@@ -37,6 +39,46 @@ export function getStationOrders(data: AppData, stationId: string) {
   return paidOrders(data)
     .filter((order) => order.stationId === stationId)
     .sort((a, b) => new Date(b.tradeTime).getTime() - new Date(a.tradeTime).getTime());
+}
+
+export function getStationPriceSettings(data: AppData, stationId: string): FuelProduct[] {
+  return DEFAULT_FUEL_TYPES.map((fuelType, index) => {
+    const existing = data.products.find((product) => product.stationId === stationId && product.fuelType === fuelType);
+    return (
+      existing ?? {
+        id: `generated:${stationId}:${fuelType}:${index}`,
+        stationId,
+        fuelType,
+        listPrice: 0,
+        partnerPrice: 0,
+        vehicleScope: "默认油品",
+        active: false,
+        updatedAt: "-"
+      }
+    );
+  });
+}
+
+export function getApplicableDiscount(data: AppData, stationId: string, fuelType: string, enterpriseId?: string) {
+  const published = data.campaigns.filter(
+    (campaign) =>
+      campaign.stationId === stationId &&
+      campaign.fuelType === fuelType &&
+      campaign.status === "published" &&
+      campaign.discountType === "percentage"
+  );
+  const enterpriseDiscount = enterpriseId
+    ? published.find((campaign) => campaign.audienceType === "enterprise" && campaign.targetEnterpriseIds.includes(enterpriseId))
+    : undefined;
+  return enterpriseDiscount ?? published.find((campaign) => campaign.audienceType === "universal");
+}
+
+export function calculateVisibleFuelPrice(data: AppData, stationId: string, fuelType: string, enterpriseId?: string) {
+  const product = getStationPriceSettings(data, stationId).find((item) => item.fuelType === fuelType);
+  if (!product?.active || product.partnerPrice <= 0) return undefined;
+  const discount = getApplicableDiscount(data, stationId, fuelType, enterpriseId);
+  const rate = discount ? discount.discountValue / 100 : 0;
+  return Number((product.partnerPrice * (1 - rate)).toFixed(2));
 }
 
 export function getStationDashboard(data: AppData, stationId: string) {

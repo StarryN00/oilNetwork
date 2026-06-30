@@ -1,12 +1,13 @@
 import { Save, ToggleLeft, ToggleRight } from "lucide-react";
 import { useState } from "react";
+import { getStationPriceSettings } from "../../domain/metrics";
 import { useAppState } from "../../state/AppState";
 
 export function OpsStations() {
   const { data, dispatch } = useAppState();
   const [stationId, setStationId] = useState(data.stations[0]?.id ?? "");
   const station = data.stations.find((item) => item.id === stationId) ?? data.stations[0];
-  const products = data.products.filter((product) => product.stationId === station.id);
+  const products = getStationPriceSettings(data, station.id);
 
   return (
     <section className="two-col wide-left">
@@ -70,7 +71,7 @@ export function OpsStations() {
                   <input type="number" step="0.01" value={product.listPrice} onChange={(event) => dispatch({ type: "updateProduct", productId: product.id, patch: { listPrice: Number(event.target.value) } })} />
                 </label>
                 <label className="mini-field">
-                  优惠价
+                  展示价
                   <input type="number" step="0.01" value={product.partnerPrice} onChange={(event) => dispatch({ type: "updateProduct", productId: product.id, patch: { partnerPrice: Number(event.target.value) } })} />
                 </label>
                 <button className="btn small" onClick={() => dispatch({ type: "updateProduct", productId: product.id, patch: { active: !product.active } })}>

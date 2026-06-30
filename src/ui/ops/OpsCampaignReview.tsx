@@ -38,7 +38,8 @@ export function OpsCampaignReview() {
           <div className="detail-grid">
             <Info label="油站" value={station?.name ?? "-"} />
             <Info label="油品" value={campaign.fuelType} />
-            <Info label="优惠方式" value={`${campaign.discountType} / ${campaign.discountValue}`} />
+            <Info label="优惠方式" value={`${campaign.discountValue}%`} />
+            <Info label="优惠类型" value={campaign.audienceType === "enterprise" ? "企业专属优惠" : "普遍优惠"} />
             <Info label="适用范围" value={campaign.targetScope} />
             <Info label="预算" value={formatCurrency(campaign.budgetTotal)} />
             <Info label="每日限额" value={formatCurrency(campaign.dailyLimit)} />
@@ -46,7 +47,7 @@ export function OpsCampaignReview() {
           <div className="publish-preview">
             <span className="muted">司机端发布预览</span>
             <strong>{station?.name} · {campaign.fuelType}</strong>
-            <p>{campaign.targetScope} 可享 {campaign.discountType === "per_liter" ? `每升 ${campaign.discountValue} 元优惠` : `${campaign.discountValue} 元优惠`}，有效期 {campaign.startTime} 至 {campaign.endTime}。</p>
+            <p>{campaign.targetScope} 可享展示价基础上 {campaign.discountValue}% 优惠，企业专属优先于普遍优惠。有效期 {campaign.startTime} 至 {campaign.endTime}。</p>
           </div>
           <div className="effect-strip">
             <span>已归因订单 <b>{effect.orders.length}</b></span>

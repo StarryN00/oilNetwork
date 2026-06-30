@@ -11,7 +11,7 @@ import { StationAccount } from "./StationAccount";
 const tabs = [
   { id: "home", label: "首页", icon: Home },
   { id: "profile", label: "资料", icon: ClipboardList },
-  { id: "products", label: "油品", icon: Fuel },
+  { id: "products", label: "油价", icon: Fuel },
   { id: "campaigns", label: "优惠", icon: Tags },
   { id: "bills", label: "账单", icon: ReceiptText },
   { id: "account", label: "我的", icon: UserRound }

@@ -37,12 +37,34 @@ export function appReducer(state: AppData, action: Action): AppData {
         )
       };
     case "updateProduct":
-      return {
-        ...state,
-        products: state.products.map((product) =>
-          product.id === action.productId ? { ...product, ...action.patch, updatedAt: timestamp() } : product
-        )
-      };
+      if (state.products.some((product) => product.id === action.productId)) {
+        return {
+          ...state,
+          products: state.products.map((product) =>
+            product.id === action.productId ? { ...product, ...action.patch, updatedAt: timestamp() } : product
+          )
+        };
+      }
+      if (action.productId.startsWith("generated:")) {
+        const [, stationId, fuelType] = action.productId.split(":");
+        return {
+          ...state,
+          products: [
+            ...state.products,
+            {
+              id: `fp-${stationId}-${Date.now()}`,
+              stationId,
+              fuelType,
+              listPrice: Number(action.patch.listPrice ?? 0),
+              partnerPrice: Number(action.patch.partnerPrice ?? 0),
+              vehicleScope: String(action.patch.vehicleScope ?? "常规车辆"),
+              active: Boolean(action.patch.active),
+              updatedAt: timestamp()
+            }
+          ]
+        };
+      }
+      return state;
     case "submitCampaign":
       return {
         ...state,

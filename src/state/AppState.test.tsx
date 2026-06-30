@@ -13,6 +13,17 @@ describe("appReducer", () => {
     expect(next.products.find((product) => product.id === "fp-001")?.partnerPrice).toBe(6.82);
   });
 
+  it("creates generated default fuel setting when station enables a missing fuel", () => {
+    const next = appReducer(seedData, {
+      type: "updateProduct",
+      productId: "generated:st-001:98# 汽油:4",
+      patch: { partnerPrice: 8.88, active: true, vehicleScope: "小车" }
+    });
+    const created = next.products.find((product) => product.stationId === "st-001" && product.fuelType === "98# 汽油");
+    expect(created?.active).toBe(true);
+    expect(created?.partnerPrice).toBe(8.88);
+  });
+
   it("submits campaign into pending review", () => {
     const base = seedData.campaigns[0];
     const next = appReducer(seedData, {

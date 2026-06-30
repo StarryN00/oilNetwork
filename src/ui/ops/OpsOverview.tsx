@@ -16,7 +16,7 @@ export function OpsOverview() {
         <div>
           <p className="eyebrow">Network Operations</p>
           <h2>把油站供给变成可运营的物流企业增量</h2>
-          <p>油站提交油品和优惠，企油通审核发布并追踪订单归因、活动效果和月度对账。</p>
+          <p>油站维护油价和优惠，企油通审核发布并追踪订单归因、活动效果和月度对账。</p>
         </div>
         <div className="hero-metric">
           <span>本月可识别交易</span>
@@ -62,7 +62,7 @@ export function OpsOverview() {
           </div>
           <div className="panel-body action-feed">
             <Feed icon={<CheckCircle2 />} title="中能石化吴王站活动表现健康" text="活动 cp-001 已贡献 5 笔订单，预算使用率低于 2%。" />
-            <Feed icon={<Clock3 />} title="嘉兴集卡夜间满减待审核" text="需确认夜间满减是否覆盖全部企油通客户。" />
+            <Feed icon={<Clock3 />} title="嘉兴集卡普惠折扣待审核" text="需确认 3% 普遍优惠是否覆盖全部企油通客户。" />
             <Feed icon={<AlertTriangle />} title="山西众昊专票时效待补充" text="驳回优惠后需补充专票开具承诺。" />
           </div>
         </div>
