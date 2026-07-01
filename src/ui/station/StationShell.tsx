@@ -1,16 +1,14 @@
-import { ClipboardList, Fuel, Home, ReceiptText, Tags, UserRound } from "lucide-react";
+import { Fuel, Home, ReceiptText, Tags, UserRound } from "lucide-react";
 import { useState } from "react";
 import { useAppState } from "../../state/AppState";
 import { StationCampaigns } from "./StationCampaigns";
 import { StationDashboard } from "./StationDashboard";
 import { StationOrdersBills } from "./StationOrdersBills";
 import { StationProducts } from "./StationProducts";
-import { StationProfile } from "./StationProfile";
 import { StationAccount } from "./StationAccount";
 
 const tabs = [
   { id: "home", label: "首页", icon: Home },
-  { id: "profile", label: "资料", icon: ClipboardList },
   { id: "products", label: "油价", icon: Fuel },
   { id: "campaigns", label: "优惠", icon: Tags },
   { id: "bills", label: "账单", icon: ReceiptText },
@@ -41,7 +39,6 @@ export function StationShell() {
         </header>
         <main className="station-content">
           {tab === "home" && <StationDashboard stationId={station.id} />}
-          {tab === "profile" && <StationProfile stationId={station.id} />}
           {tab === "products" && <StationProducts stationId={station.id} />}
           {tab === "campaigns" && <StationCampaigns stationId={station.id} />}
           {tab === "bills" && <StationOrdersBills stationId={station.id} />}

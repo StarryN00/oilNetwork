@@ -8,7 +8,7 @@ export function StationProfile({ stationId }: { stationId: string }) {
   return (
     <section className="mobile-card form-card">
       <h3>油站资料</h3>
-      <p>维护油站经营资料；账号、角色和登录信息已移到“我的”。</p>
+      <p>维护油站经营资料，保存后企油通后台可同步查看。</p>
       <label className="field">
         <span>油站名称</span>
         <input value={station.name} onChange={(event) => dispatch({ type: "updateStation", stationId, patch: { name: event.target.value } })} />

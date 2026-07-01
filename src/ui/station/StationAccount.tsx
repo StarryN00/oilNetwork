@@ -1,5 +1,6 @@
 import { Building2, ChevronRight, LogOut, ShieldCheck, UserRound } from "lucide-react";
 import { useAppState } from "../../state/AppState";
+import { StationProfile } from "./StationProfile";
 
 export function StationAccount({ stationId }: { stationId: string }) {
   const { data } = useAppState();
@@ -22,6 +23,8 @@ export function StationAccount({ stationId }: { stationId: string }) {
         <AccountRow icon={<ShieldCheck size={18} />} label="角色权限" value="站长 / 财务确认 / 优惠提交" />
         <AccountRow icon={<Building2 size={18} />} label="所属油站" value={station.name} />
       </div>
+
+      <StationProfile stationId={stationId} />
 
       <div className="mobile-card account-section">
         <h3>常规设置</h3>
