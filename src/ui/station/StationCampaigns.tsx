@@ -30,8 +30,9 @@ export function StationCampaigns({ stationId }: { stationId: string }) {
   const { data, dispatch } = useAppState();
   const station = data.stations.find((item) => item.id === stationId)!;
   const campaigns = data.campaigns.filter((campaign) => campaign.stationId === stationId);
-  const universalCampaigns = campaigns.filter(isUniversalCampaign);
-  const enterpriseCampaigns = campaigns.filter(isEnterpriseCampaign);
+  const currentCampaigns = campaigns.filter((campaign) => campaign.status !== "ended");
+  const universalCampaigns = currentCampaigns.filter(isUniversalCampaign);
+  const enterpriseCampaigns = currentCampaigns.filter(isEnterpriseCampaign);
   const currentUniversal = universalCampaigns.find((campaign) => campaign.status === "published") ?? universalCampaigns[0];
   const enterpriseIds = Array.from(new Set(enterpriseCampaigns.flatMap((campaign) => campaign.targetEnterpriseIds ?? [])));
   const [universalFuel, setUniversalFuel] = useState("0# 柴油");
@@ -97,6 +98,17 @@ export function StationCampaigns({ stationId }: { stationId: string }) {
     setShowEnterpriseList(true);
   }
 
+  function enterpriseNamesFor(campaign: Campaign) {
+    const names = (campaign.targetEnterpriseIds ?? [])
+      .map((id) => data.enterprises.find((enterprise) => enterprise.id === id)?.name)
+      .filter(Boolean);
+    return names.length > 0 ? names.join("、") : "未指定企业";
+  }
+
+  function primaryLabelFor(campaign: Campaign) {
+    return isEnterpriseCampaign(campaign) ? enterpriseNamesFor(campaign) : "普遍优惠";
+  }
+
   return (
     <section className="mobile-stack">
       <div className="mobile-card discount-type-card">
@@ -160,13 +172,10 @@ export function StationCampaigns({ stationId }: { stationId: string }) {
         {showEnterpriseList && (
           <div className="enterprise-discount-list">
             {enterpriseCampaigns.length > 0 ? enterpriseCampaigns.map((campaign) => {
-              const enterpriseNames = (campaign.targetEnterpriseIds ?? [])
-                .map((id) => data.enterprises.find((enterprise) => enterprise.id === id)?.name ?? "未知企业")
-                .join("、");
               return (
                 <div className="enterprise-discount-row" key={campaign.id}>
                   <div>
-                    <strong>{enterpriseNames}</strong>
+                    <strong>{enterpriseNamesFor(campaign)}</strong>
                     <span>{campaign.fuelType} · {formatDiscount(campaign)} · {campaign.startTime} 至 {campaign.endTime}</span>
                   </div>
                   <span className={getStatusClass(campaign.status)}>{statusLabel(campaign.status)}</span>
@@ -206,13 +215,13 @@ export function StationCampaigns({ stationId }: { stationId: string }) {
       </div>
 
       <div className="mobile-card">
-        <h3>我的优惠</h3>
+        <h3>优惠审核记录</h3>
         <div className="mobile-list">
           {campaigns.map((campaign) => (
             <div className="mobile-list-row" key={campaign.id}>
               <div>
-                <strong>{campaign.name}</strong>
-                <span>{campaign.fuelType} · {isEnterpriseCampaign(campaign) ? "企业专属" : "普遍优惠"} · {formatDiscount(campaign)}</span>
+                <strong>{primaryLabelFor(campaign)}</strong>
+                <span>{campaign.fuelType} · {isEnterpriseCampaign(campaign) ? "企业专属" : "普遍优惠"} · {formatDiscount(campaign)} · {campaign.startTime} 至 {campaign.endTime}</span>
               </div>
               <span className={campaign.status === "published" ? "chip good" : campaign.status === "rejected" ? "chip bad" : "chip warn"}>
                 {statusLabel(campaign.status)}
