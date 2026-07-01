@@ -942,6 +942,133 @@ td {
   gap: 0.8rem;
 }
 
+.discount-type-card {
+  display: grid;
+  gap: 0.8rem;
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.94), rgba(238, 247, 237, 0.76)),
+    radial-gradient(circle at 92% 0%, rgba(8, 124, 146, 0.12), transparent 8rem);
+}
+
+.discount-card-head {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.7rem;
+  align-items: start;
+}
+
+.discount-card-head h3,
+.discount-card-head p {
+  margin: 0;
+}
+
+.discount-card-head p {
+  margin-top: 0.25rem;
+  line-height: 1.5;
+}
+
+.discount-icon {
+  display: grid;
+  place-items: center;
+  width: 2.2rem;
+  height: 2.2rem;
+  border: 1px solid rgba(8, 124, 146, 0.18);
+  border-radius: 8px;
+  color: var(--cyan);
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.discount-metric {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.85rem;
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.72);
+  padding: 0.85rem;
+  color: var(--text);
+  text-align: left;
+}
+
+.discount-metric.clickable {
+  cursor: pointer;
+}
+
+.discount-metric.clickable:hover {
+  border-color: rgba(8, 124, 146, 0.34);
+  background: rgba(8, 124, 146, 0.06);
+}
+
+.discount-metric span,
+.discount-metric strong,
+.discount-summary-line span {
+  display: block;
+}
+
+.discount-metric div > span,
+.discount-summary-line {
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
+.discount-metric strong {
+  margin-top: 0.18rem;
+  font-size: 1.75rem;
+  line-height: 1;
+}
+
+.discount-summary-line {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.4rem 0.8rem;
+}
+
+.discount-panel {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.68);
+  padding: 0.8rem;
+}
+
+.enterprise-discount-list {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.enterprise-discount-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.65rem;
+  align-items: center;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.68);
+  padding: 0.7rem;
+}
+
+.enterprise-discount-row strong,
+.enterprise-discount-row span {
+  display: block;
+}
+
+.enterprise-discount-row div > span {
+  margin-top: 0.2rem;
+  color: var(--muted);
+  font-size: 0.76rem;
+  line-height: 1.45;
+}
+
+.enterprise-discount-empty {
+  border: 1px dashed var(--line-strong);
+  border-radius: var(--radius);
+  color: var(--muted);
+  padding: 0.8rem;
+  text-align: center;
+}
+
 .full {
   width: 100%;
 }
