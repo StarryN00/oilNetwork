@@ -1,4 +1,5 @@
 import { Building2, ChevronRight, LogOut, ShieldCheck, UserRound } from "lucide-react";
+import { stationStatusLabel } from "../../domain/labels";
 import { useAppState } from "../../state/AppState";
 import { StationProfile } from "./StationProfile";
 
@@ -36,7 +37,7 @@ export function StationAccount({ stationId }: { stationId: string }) {
 
       <div className="mobile-card account-section">
         <h3>平台信息</h3>
-        <AccountRow label="合作状态" value={station.status} />
+        <AccountRow label="合作状态" value={stationStatusLabel(station.status)} />
         <AccountRow label="资料最近更新" value={station.lastUpdatedAt} />
         <AccountRow label="数据范围" value="仅当前油站可见" />
       </div>

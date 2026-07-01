@@ -1,5 +1,6 @@
 import { Save, ToggleLeft, ToggleRight } from "lucide-react";
 import { useState } from "react";
+import { stationStatusLabel } from "../../domain/labels";
 import { getStationPriceSettings } from "../../domain/metrics";
 import { useAppState } from "../../state/AppState";
 
@@ -21,7 +22,7 @@ export function OpsStations() {
             <button key={item.id} className={station.id === item.id ? "station-row active" : "station-row"} onClick={() => setStationId(item.id)}>
               <span>
                 <strong>{item.name}</strong>
-                <small>{item.city} · {item.status}</small>
+                <small>{item.city} · {stationStatusLabel(item.status)}</small>
               </span>
               <b>{item.cooperationScore}</b>
             </button>
@@ -53,10 +54,10 @@ export function OpsStations() {
           <label className="field">
             <span>合作状态</span>
             <select value={station.status} onChange={(event) => dispatch({ type: "updateStation", stationId: station.id, patch: { status: event.target.value as typeof station.status } })}>
-              <option value="active">active</option>
-              <option value="pending">pending</option>
-              <option value="paused">paused</option>
-              <option value="offline">offline</option>
+              <option value="active">合作中</option>
+              <option value="pending">待完善</option>
+              <option value="paused">已暂停</option>
+              <option value="offline">已下线</option>
             </select>
           </label>
           <div className="span-2 products-board">

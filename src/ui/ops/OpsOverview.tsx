@@ -14,7 +14,7 @@ export function OpsOverview() {
     <section className="page-stack">
       <div className="ops-hero">
         <div>
-          <p className="eyebrow">Network Operations</p>
+          <p className="eyebrow">企油通网络运营</p>
           <h2>把油站供给变成可运营的物流企业增量</h2>
           <p>油站维护油价和优惠，企油通审核发布并追踪订单归因、活动效果和月度对账。</p>
         </div>

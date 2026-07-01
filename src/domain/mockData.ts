@@ -49,6 +49,38 @@ export const seedData: AppData = {
       cooperationScore: 74,
       lastUpdatedBy: "杜总",
       lastUpdatedAt: "2026-06-23 14:20"
+    },
+    {
+      id: "st-004",
+      name: "鲁港能源临港站",
+      brand: "鲁港能源",
+      province: "山东",
+      city: "临沂",
+      address: "临港物流园疏港大道 6 号",
+      contactName: "许经理",
+      contactPhone: "13800010004",
+      businessHours: "00:00-24:00",
+      invoiceCapability: "专票稳定，支持电子清单",
+      status: "active",
+      cooperationScore: 88,
+      lastUpdatedBy: "许经理",
+      lastUpdatedAt: "2026-06-26 11:20"
+    },
+    {
+      id: "st-005",
+      name: "西南昆渝能源呈贡站",
+      brand: "昆渝能源",
+      province: "云南",
+      city: "昆明",
+      address: "呈贡王家营物流基地北门",
+      contactName: "罗站长",
+      contactPhone: "13800010005",
+      businessHours: "05:00-23:30",
+      invoiceCapability: "普票即时，专票 T+1 汇总",
+      status: "active",
+      cooperationScore: 81,
+      lastUpdatedBy: "罗站长",
+      lastUpdatedAt: "2026-06-26 15:45"
     }
   ],
   products: [
@@ -57,7 +89,13 @@ export const seedData: AppData = {
     { id: "fp-003", stationId: "st-002", fuelType: "0# 柴油", listPrice: 7.2, partnerPrice: 6.98, vehicleScope: "集卡/专线", active: true, updatedAt: "2026-06-24 18:12" },
     { id: "fp-004", stationId: "st-002", fuelType: "车用尿素", listPrice: 3.1, partnerPrice: 2.88, vehicleScope: "国六车辆", active: true, updatedAt: "2026-06-24 18:12" },
     { id: "fp-005", stationId: "st-003", fuelType: "0# 柴油", listPrice: 7.15, partnerPrice: 6.9, vehicleScope: "零担车队", active: true, updatedAt: "2026-06-23 14:25" },
-    { id: "fp-006", stationId: "st-003", fuelType: "LNG", listPrice: 4.88, partnerPrice: 4.72, vehicleScope: "燃气重卡", active: false, updatedAt: "2026-06-23 14:25" }
+    { id: "fp-006", stationId: "st-003", fuelType: "LNG", listPrice: 4.88, partnerPrice: 4.72, vehicleScope: "燃气重卡", active: false, updatedAt: "2026-06-23 14:25" },
+    { id: "fp-007", stationId: "st-004", fuelType: "0# 柴油", listPrice: 7.12, partnerPrice: 6.86, vehicleScope: "港口集疏运车辆", active: true, updatedAt: "2026-06-26 11:22" },
+    { id: "fp-008", stationId: "st-004", fuelType: "95# 汽油", listPrice: 8.36, partnerPrice: 8.18, vehicleScope: "随车服务车辆", active: true, updatedAt: "2026-06-26 11:22" },
+    { id: "fp-009", stationId: "st-004", fuelType: "车用尿素", listPrice: 3.08, partnerPrice: 2.82, vehicleScope: "国六重卡", active: true, updatedAt: "2026-06-26 11:22" },
+    { id: "fp-010", stationId: "st-005", fuelType: "0# 柴油", listPrice: 7.25, partnerPrice: 6.98, vehicleScope: "冷链/城配车辆", active: true, updatedAt: "2026-06-26 15:46" },
+    { id: "fp-011", stationId: "st-005", fuelType: "-10# 柴油", listPrice: 7.49, partnerPrice: 7.25, vehicleScope: "滇东北线路", active: true, updatedAt: "2026-06-26 15:46" },
+    { id: "fp-012", stationId: "st-005", fuelType: "LNG", listPrice: 4.92, partnerPrice: 4.78, vehicleScope: "燃气牵引车", active: true, updatedAt: "2026-06-26 15:46" }
   ],
   campaigns: [
     {
@@ -173,6 +211,119 @@ export const seedData: AppData = {
       submittedAt: "2026-06-18 10:30",
       reviewedBy: "企油通运营-林",
       reviewedAt: "2026-06-18 11:00"
+    },
+    {
+      id: "cp-006",
+      stationId: "st-004",
+      name: "鲁港能源全体企油通普惠",
+      fuelType: "0# 柴油",
+      discountType: "percentage",
+      discountValue: 2.8,
+      audienceType: "universal",
+      targetScope: "所有企油通用户",
+      targetEnterpriseIds: [],
+      targetRouteIds: [],
+      budgetTotal: 26000,
+      limitPerVehicle: 700,
+      limitPerDriver: 700,
+      dailyLimit: 3800,
+      startTime: "2026-06-22",
+      endTime: "2026-07-22",
+      status: "published",
+      submittedBy: "许经理",
+      submittedAt: "2026-06-21 09:20",
+      reviewedBy: "企油通运营-周",
+      reviewedAt: "2026-06-21 10:40"
+    },
+    {
+      id: "cp-007",
+      stationId: "st-004",
+      name: "华东冷链干线企业专属",
+      fuelType: "0# 柴油",
+      discountType: "percentage",
+      discountValue: 4.5,
+      audienceType: "enterprise",
+      targetScope: "指定物流企业",
+      targetEnterpriseIds: ["ent-005"],
+      targetRouteIds: ["rt-006"],
+      budgetTotal: 36000,
+      limitPerVehicle: 1600,
+      limitPerDriver: 1400,
+      dailyLimit: 5200,
+      startTime: "2026-06-24",
+      endTime: "2026-07-24",
+      status: "published",
+      submittedBy: "许经理",
+      submittedAt: "2026-06-23 15:00",
+      reviewedBy: "企油通运营-周",
+      reviewedAt: "2026-06-23 16:15"
+    },
+    {
+      id: "cp-008",
+      stationId: "st-005",
+      name: "昆渝能源全体企油通普惠",
+      fuelType: "0# 柴油",
+      discountType: "percentage",
+      discountValue: 3.2,
+      audienceType: "universal",
+      targetScope: "所有企油通用户",
+      targetEnterpriseIds: [],
+      targetRouteIds: [],
+      budgetTotal: 18000,
+      limitPerVehicle: 600,
+      limitPerDriver: 600,
+      dailyLimit: 2800,
+      startTime: "2026-06-26",
+      endTime: "2026-07-26",
+      status: "pending_review",
+      submittedBy: "罗站长",
+      submittedAt: "2026-06-26 16:30"
+    },
+    {
+      id: "cp-009",
+      stationId: "st-001",
+      name: "长三角冷链企业专属",
+      fuelType: "-10# 柴油",
+      discountType: "percentage",
+      discountValue: 4,
+      audienceType: "enterprise",
+      targetScope: "指定物流企业",
+      targetEnterpriseIds: ["ent-006"],
+      targetRouteIds: ["rt-007"],
+      budgetTotal: 22000,
+      limitPerVehicle: 1200,
+      limitPerDriver: 1100,
+      dailyLimit: 3600,
+      startTime: "2026-06-25",
+      endTime: "2026-07-25",
+      status: "published",
+      submittedBy: "潘站长",
+      submittedAt: "2026-06-24 14:20",
+      reviewedBy: "企油通运营-林",
+      reviewedAt: "2026-06-24 15:35"
+    },
+    {
+      id: "cp-010",
+      stationId: "st-003",
+      name: "山西零担复购普惠",
+      fuelType: "0# 柴油",
+      discountType: "percentage",
+      discountValue: 2.5,
+      audienceType: "universal",
+      targetScope: "所有企油通用户",
+      targetEnterpriseIds: [],
+      targetRouteIds: [],
+      budgetTotal: 14000,
+      limitPerVehicle: 500,
+      limitPerDriver: 500,
+      dailyLimit: 2200,
+      startTime: "2026-06-26",
+      endTime: "2026-07-18",
+      status: "published",
+      submittedBy: "杜总",
+      submittedAt: "2026-06-25 12:10",
+      reviewedBy: "企油通运营-林",
+      reviewedAt: "2026-06-25 13:05"
     }
   ],
   enterprises: [
@@ -220,6 +371,52 @@ export const seedData: AppData = {
       routes: [
         { id: "rt-005", name: "上海-湖州", origin: "上海", destination: "湖州", monthlyVolume: 160000, preferredStationIds: ["st-002"] }
       ]
+    },
+    {
+      id: "ent-005",
+      name: "山东恒瑞冷链物流",
+      contactName: "邵总",
+      contactPhone: "13900020005",
+      monthlyFuelBudget: 1180000,
+      status: "active",
+      routes: [
+        { id: "rt-006", name: "临沂-青岛港", origin: "临沂", destination: "青岛港", monthlyVolume: 520000, preferredStationIds: ["st-004"] },
+        { id: "rt-010", name: "临沂-杭州", origin: "临沂", destination: "杭州", monthlyVolume: 260000, preferredStationIds: ["st-004", "st-002"] }
+      ]
+    },
+    {
+      id: "ent-006",
+      name: "苏浙鲜达冷链",
+      contactName: "钱经理",
+      contactPhone: "13900020006",
+      monthlyFuelBudget: 740000,
+      status: "active",
+      routes: [
+        { id: "rt-007", name: "苏州-杭州农批", origin: "苏州", destination: "杭州", monthlyVolume: 240000, preferredStationIds: ["st-001", "st-002"] }
+      ]
+    },
+    {
+      id: "ent-007",
+      name: "云贵快线城配",
+      contactName: "胡总",
+      contactPhone: "13900020007",
+      monthlyFuelBudget: 610000,
+      status: "trial",
+      routes: [
+        { id: "rt-008", name: "昆明-曲靖", origin: "昆明", destination: "曲靖", monthlyVolume: 210000, preferredStationIds: ["st-005"] },
+        { id: "rt-011", name: "昆明-玉溪", origin: "昆明", destination: "玉溪", monthlyVolume: 160000, preferredStationIds: ["st-005"] }
+      ]
+    },
+    {
+      id: "ent-008",
+      name: "华北煤焦集运",
+      contactName: "梁总",
+      contactPhone: "13900020008",
+      monthlyFuelBudget: 1360000,
+      status: "watch",
+      routes: [
+        { id: "rt-009", name: "太原-邯郸", origin: "太原", destination: "邯郸", monthlyVolume: 480000, preferredStationIds: ["st-003"] }
+      ]
     }
   ],
   drivers: [
@@ -230,7 +427,15 @@ export const seedData: AppData = {
     { id: "dr-005", name: "杨师傅", phone: "13600030005", enterpriseId: "ent-003", status: "active" },
     { id: "dr-006", name: "郭师傅", phone: "13600030006", enterpriseId: "ent-003", status: "active" },
     { id: "dr-007", name: "孙师傅", phone: "13600030007", enterpriseId: "ent-004", status: "active" },
-    { id: "dr-008", name: "马师傅", phone: "13600030008", enterpriseId: "ent-004", status: "paused" }
+    { id: "dr-008", name: "马师傅", phone: "13600030008", enterpriseId: "ent-004", status: "paused" },
+    { id: "dr-009", name: "邵师傅", phone: "13600030009", enterpriseId: "ent-005", status: "active" },
+    { id: "dr-010", name: "孟师傅", phone: "13600030010", enterpriseId: "ent-005", status: "active" },
+    { id: "dr-011", name: "钱师傅", phone: "13600030011", enterpriseId: "ent-006", status: "active" },
+    { id: "dr-012", name: "冯师傅", phone: "13600030012", enterpriseId: "ent-006", status: "active" },
+    { id: "dr-013", name: "罗师傅", phone: "13600030013", enterpriseId: "ent-007", status: "active" },
+    { id: "dr-014", name: "白师傅", phone: "13600030014", enterpriseId: "ent-007", status: "active" },
+    { id: "dr-015", name: "梁师傅", phone: "13600030015", enterpriseId: "ent-008", status: "active" },
+    { id: "dr-016", name: "韩师傅", phone: "13600030016", enterpriseId: "ent-008", status: "active" }
   ],
   vehicles: [
     { id: "vh-001", plateNo: "苏E8Q721", vehicleType: "重卡", enterpriseId: "ent-001", driverId: "dr-001", status: "active" },
@@ -240,12 +445,24 @@ export const seedData: AppData = {
     { id: "vh-005", plateNo: "晋A72H30", vehicleType: "零担车", enterpriseId: "ent-003", driverId: "dr-005", status: "active" },
     { id: "vh-006", plateNo: "晋A16T82", vehicleType: "零担车", enterpriseId: "ent-003", driverId: "dr-006", status: "active" },
     { id: "vh-007", plateNo: "沪D52K70", vehicleType: "厢式车", enterpriseId: "ent-004", driverId: "dr-007", status: "active" },
-    { id: "vh-008", plateNo: "沪D89M21", vehicleType: "厢式车", enterpriseId: "ent-004", driverId: "dr-008", status: "paused" }
+    { id: "vh-008", plateNo: "沪D89M21", vehicleType: "厢式车", enterpriseId: "ent-004", driverId: "dr-008", status: "paused" },
+    { id: "vh-009", plateNo: "鲁Q7L826", vehicleType: "冷链重卡", enterpriseId: "ent-005", driverId: "dr-009", status: "active" },
+    { id: "vh-010", plateNo: "鲁Q2M561", vehicleType: "冷链重卡", enterpriseId: "ent-005", driverId: "dr-010", status: "active" },
+    { id: "vh-011", plateNo: "苏E6C920", vehicleType: "冷藏车", enterpriseId: "ent-006", driverId: "dr-011", status: "active" },
+    { id: "vh-012", plateNo: "浙A3Y608", vehicleType: "冷藏车", enterpriseId: "ent-006", driverId: "dr-012", status: "active" },
+    { id: "vh-013", plateNo: "云A8K510", vehicleType: "城配车", enterpriseId: "ent-007", driverId: "dr-013", status: "active" },
+    { id: "vh-014", plateNo: "云A5T772", vehicleType: "城配车", enterpriseId: "ent-007", driverId: "dr-014", status: "active" },
+    { id: "vh-015", plateNo: "晋A9P260", vehicleType: "牵引车", enterpriseId: "ent-008", driverId: "dr-015", status: "active" },
+    { id: "vh-016", plateNo: "晋A3S671", vehicleType: "牵引车", enterpriseId: "ent-008", driverId: "dr-016", status: "active" }
   ],
   tokens: [
     { id: "tk-001", code: "QYT-ENT001-001", enterpriseId: "ent-001", driverId: "dr-001", vehicleId: "vh-001", stationId: "st-001", campaignId: "cp-001", validFrom: "2026-06-01", validTo: "2026-07-01", amountLimit: 12000, usedAmount: 5330, status: "active" },
     { id: "tk-002", code: "QYT-ENT001-002", enterpriseId: "ent-001", driverId: "dr-002", vehicleId: "vh-002", stationId: "st-001", validFrom: "2026-06-01", validTo: "2026-07-01", amountLimit: 10000, usedAmount: 4110, status: "active" },
-    { id: "tk-003", code: "QYT-ENT002-001", enterpriseId: "ent-002", driverId: "dr-003", vehicleId: "vh-003", stationId: "st-002", validFrom: "2026-06-10", validTo: "2026-07-10", amountLimit: 9000, usedAmount: 2920, status: "active" }
+    { id: "tk-003", code: "QYT-ENT002-001", enterpriseId: "ent-002", driverId: "dr-003", vehicleId: "vh-003", stationId: "st-002", validFrom: "2026-06-10", validTo: "2026-07-10", amountLimit: 9000, usedAmount: 2920, status: "active" },
+    { id: "tk-004", code: "QYT-ENT005-001", enterpriseId: "ent-005", driverId: "dr-009", vehicleId: "vh-009", stationId: "st-004", campaignId: "cp-007", validFrom: "2026-06-24", validTo: "2026-07-24", amountLimit: 14000, usedAmount: 4210, status: "active" },
+    { id: "tk-005", code: "QYT-ENT005-002", enterpriseId: "ent-005", driverId: "dr-010", vehicleId: "vh-010", stationId: "st-004", campaignId: "cp-007", validFrom: "2026-06-24", validTo: "2026-07-24", amountLimit: 14000, usedAmount: 3880, status: "active" },
+    { id: "tk-006", code: "QYT-ENT006-001", enterpriseId: "ent-006", driverId: "dr-011", vehicleId: "vh-011", stationId: "st-001", campaignId: "cp-009", validFrom: "2026-06-25", validTo: "2026-07-25", amountLimit: 11000, usedAmount: 2360, status: "active" },
+    { id: "tk-007", code: "QYT-ENT007-001", enterpriseId: "ent-007", driverId: "dr-013", vehicleId: "vh-013", stationId: "st-005", campaignId: "cp-008", validFrom: "2026-06-26", validTo: "2026-07-26", amountLimit: 8000, usedAmount: 1180, status: "active" }
   ],
   orders: [],
   reconciliations: [],
@@ -270,7 +487,25 @@ const orderBase = [
   ["fo-015", "QYT20260601015", "st-001", "ent-001", "dr-002", "vh-002", "tk-002", "cp-001", "0# 柴油", 390, 2800.2, 89.7, "2026-06-25 16:26"],
   ["fo-016", "QYT20260601016", "st-002", "ent-002", "dr-003", "vh-003", "tk-003", undefined, "0# 柴油", 350, 2520, 77, "2026-06-25 18:04"],
   ["fo-017", "QYT20260601017", "st-001", "ent-001", "dr-001", "vh-001", "tk-001", "cp-001", "0# 柴油", 360, 2584.8, 82.8, "2026-06-25 20:18"],
-  ["fo-018", "QYT20260601018", "st-003", "ent-003", "dr-006", "vh-006", undefined, undefined, "0# 柴油", 290, 2073.5, 72.5, "2026-06-25 21:35"]
+  ["fo-018", "QYT20260601018", "st-003", "ent-003", "dr-006", "vh-006", undefined, undefined, "0# 柴油", 290, 2073.5, 72.5, "2026-06-25 21:35"],
+  ["fo-019", "QYT20260601019", "st-004", "ent-005", "dr-009", "vh-009", "tk-004", "cp-007", "0# 柴油", 460, 3275.2, 147.4, "2026-06-24 06:50"],
+  ["fo-020", "QYT20260601020", "st-004", "ent-005", "dr-010", "vh-010", "tk-005", "cp-007", "0# 柴油", 430, 3061.6, 137.8, "2026-06-24 14:18"],
+  ["fo-021", "QYT20260601021", "st-004", "ent-006", "dr-012", "vh-012", undefined, "cp-006", "0# 柴油", 310, 2207.2, 61.8, "2026-06-25 07:32"],
+  ["fo-022", "QYT20260601022", "st-004", "ent-005", "dr-009", "vh-009", "tk-004", "cp-007", "0# 柴油", 390, 2776.8, 125.0, "2026-06-25 11:45"],
+  ["fo-023", "QYT20260601023", "st-004", "ent-005", "dr-010", "vh-010", "tk-005", "cp-007", "0# 柴油", 410, 2919.2, 131.4, "2026-06-25 19:26"],
+  ["fo-024", "QYT20260601024", "st-004", "ent-004", "dr-007", "vh-007", undefined, undefined, "95# 汽油", 72, 601.9, 13.0, "2026-06-26 09:10"],
+  ["fo-025", "QYT20260601025", "st-005", "ent-007", "dr-013", "vh-013", "tk-007", "cp-008", "0# 柴油", 260, 1885.0, 60.3, "2026-06-26 08:42"],
+  ["fo-026", "QYT20260601026", "st-005", "ent-007", "dr-014", "vh-014", undefined, "cp-008", "0# 柴油", 240, 1740.0, 55.7, "2026-06-26 13:15"],
+  ["fo-027", "QYT20260601027", "st-003", "ent-008", "dr-015", "vh-015", undefined, "cp-010", "0# 柴油", 440, 3146.0, 78.7, "2026-06-26 15:36"],
+  ["fo-028", "QYT20260601028", "st-003", "ent-008", "dr-016", "vh-016", undefined, "cp-010", "0# 柴油", 470, 3360.5, 84.0, "2026-06-26 22:02"],
+  ["fo-029", "QYT20260601029", "st-001", "ent-006", "dr-011", "vh-011", "tk-006", "cp-009", "-10# 柴油", 285, 2114.7, 84.6, "2026-06-26 06:28"],
+  ["fo-030", "QYT20260601030", "st-001", "ent-006", "dr-012", "vh-012", undefined, "cp-009", "-10# 柴油", 300, 2226.0, 89.0, "2026-06-26 17:52"],
+  ["fo-031", "QYT20260601031", "st-002", "ent-006", "dr-011", "vh-011", undefined, undefined, "0# 柴油", 330, 2376.0, 72.6, "2026-06-26 20:08"],
+  ["fo-032", "QYT20260601032", "st-002", "ent-005", "dr-010", "vh-010", undefined, undefined, "车用尿素", 95, 294.5, 20.9, "2026-06-26 21:40"],
+  ["fo-033", "QYT20260601033", "st-004", "ent-005", "dr-009", "vh-009", "tk-004", "cp-007", "0# 柴油", 450, 3204.0, 144.2, "2026-06-27 07:20"],
+  ["fo-034", "QYT20260601034", "st-005", "ent-007", "dr-013", "vh-013", "tk-007", "cp-008", "0# 柴油", 280, 2030.0, 65.0, "2026-06-27 10:05"],
+  ["fo-035", "QYT20260601035", "st-005", "ent-008", "dr-015", "vh-015", undefined, undefined, "LNG", 510, 2509.2, 71.4, "2026-06-27 18:18"],
+  ["fo-036", "QYT20260601036", "st-001", "ent-001", "dr-001", "vh-001", "tk-001", "cp-001", "0# 柴油", 405, 2907.9, 93.1, "2026-06-27 20:36"]
 ] as const;
 
 seedData.orders = orderBase.map(([id, orderNo, stationId, enterpriseId, driverId, vehicleId, tokenId, campaignId, fuelType, liters, originalAmount, discountAmount, tradeTime], index) => ({
@@ -296,12 +531,17 @@ seedData.orders = orderBase.map(([id, orderNo, stationId, enterpriseId, driverId
 
 seedData.reconciliations = [
   { id: "rc-001", stationId: "st-001", month: "2026-06", orderIds: seedData.orders.filter((order) => order.stationId === "st-001").map((order) => order.id), status: "pending_station" },
-  { id: "rc-002", stationId: "st-002", month: "2026-06", orderIds: seedData.orders.filter((order) => order.stationId === "st-002").map((order) => order.id), status: "exported", exportedAt: "2026-06-25 08:00" }
+  { id: "rc-002", stationId: "st-002", month: "2026-06", orderIds: seedData.orders.filter((order) => order.stationId === "st-002").map((order) => order.id), status: "exported", exportedAt: "2026-06-25 08:00" },
+  { id: "rc-003", stationId: "st-003", month: "2026-06", orderIds: seedData.orders.filter((order) => order.stationId === "st-003").map((order) => order.id), status: "disputed" },
+  { id: "rc-004", stationId: "st-004", month: "2026-06", orderIds: seedData.orders.filter((order) => order.stationId === "st-004").map((order) => order.id), status: "pending_station" },
+  { id: "rc-005", stationId: "st-005", month: "2026-06", orderIds: seedData.orders.filter((order) => order.stationId === "st-005").map((order) => order.id), status: "confirmed", confirmedAt: "2026-06-28 10:20", stationNote: "金额与开票清单一致" }
 ];
 
 seedData.abnormalEvents = [
   { id: "ab-001", orderId: "fo-008", stationId: "st-003", type: "发票延迟", description: "专票预计次月汇总，需确认是否影响客户本月抵扣。", status: "open", createdAt: "2026-06-23 12:10" },
   { id: "ab-002", orderId: "fo-010", stationId: "st-002", type: "油品不匹配", description: "司机选择尿素，订单备注为柴油，需要人工核对。", status: "processing", createdAt: "2026-06-24 19:40" },
   { id: "ab-003", orderId: "fo-005", stationId: "st-002", type: "优惠差异", description: "油站优惠价与司机端展示价相差 0.02 元/升。", status: "resolved", createdAt: "2026-06-22 09:30" },
-  { id: "ab-004", orderId: "fo-014", stationId: "st-003", type: "账单待确认", description: "油站要求补充支付渠道流水号。", status: "open", createdAt: "2026-06-25 16:00" }
+  { id: "ab-004", orderId: "fo-014", stationId: "st-003", type: "账单待确认", description: "油站要求补充支付渠道流水号。", status: "open", createdAt: "2026-06-25 16:00" },
+  { id: "ab-005", orderId: "fo-024", stationId: "st-004", type: "服务车油品确认", description: "随车服务车辆使用 95# 汽油，需确认是否计入企业月度清单。", status: "processing", createdAt: "2026-06-26 10:05" },
+  { id: "ab-006", orderId: "fo-035", stationId: "st-005", type: "LNG 票面单位", description: "客户要求按公斤和金额双单位展示，待补充电子清单模板。", status: "open", createdAt: "2026-06-27 19:10" }
 ];

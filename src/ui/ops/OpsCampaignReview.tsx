@@ -1,5 +1,6 @@
 import { Check, Pause, X } from "lucide-react";
 import { useMemo, useState } from "react";
+import { campaignStatusLabel } from "../../domain/labels";
 import { getCampaignEffect, formatCurrency } from "../../domain/metrics";
 import { useAppState } from "../../state/AppState";
 
@@ -85,13 +86,5 @@ function Info({ label, value }: { label: string; value: string }) {
 }
 
 export function statusLabel(status: string) {
-  const labels: Record<string, string> = {
-    draft: "草稿",
-    pending_review: "待审核",
-    published: "已发布",
-    rejected: "已驳回",
-    paused: "已暂停",
-    ended: "已结束"
-  };
-  return labels[status] ?? status;
+  return campaignStatusLabel(status);
 }

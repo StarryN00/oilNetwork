@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect, useMemo, useReducer } from "react
 import { seedData } from "../domain/mockData";
 import type { AbnormalEvent, AppData, Campaign, FuelProduct, OilStation, Reconciliation } from "../domain/types";
 
-const STORAGE_KEY = "oil-network-demo-state-v1";
+const STORAGE_KEY = "oil-network-demo-state-v3";
 
 type Action =
   | { type: "updateStation"; stationId: string; patch: Partial<OilStation> }

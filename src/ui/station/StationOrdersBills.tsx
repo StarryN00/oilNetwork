@@ -7,6 +7,7 @@ import {
   getStationMonthlyReport,
   getStationOrders
 } from "../../domain/metrics";
+import { incrementTypeLabel, invoiceStatusLabel } from "../../domain/labels";
 import { useAppState } from "../../state/AppState";
 
 export function StationOrdersBills({ stationId }: { stationId: string }) {
@@ -51,10 +52,10 @@ export function StationOrdersBills({ stationId }: { stationId: string }) {
         </div>
         <div className="report-pill-row">
           {report.incrementBreakdown.map((item) => (
-            <span className="chip good" key={item.type}>{incrementLabel(item.type)} {item.count}</span>
+            <span className="chip good" key={item.type}>{incrementTypeLabel(item.type, true)} {item.count}</span>
           ))}
           {report.invoiceBreakdown.map((item) => (
-            <span className="chip" key={item.status}>发票 {item.status} {item.count}</span>
+            <span className="chip" key={item.status}>发票 {invoiceStatusLabel(item.status)} {item.count}</span>
           ))}
         </div>
       </div>
@@ -84,7 +85,7 @@ export function StationOrdersBills({ stationId }: { stationId: string }) {
               <div className="mobile-order-meta">
                 <span>{formatNumber(order.liters)} L</span>
                 <span>优惠 {formatCurrency(order.discountAmount)}</span>
-                <span>{classifyOrderIncrement(data, order)}</span>
+                <span>{incrementTypeLabel(classifyOrderIncrement(data, order), true)}</span>
               </div>
               <button className="btn small" onClick={() => dispatch({ type: "reportAbnormal", event: { orderId: order.id, stationId, type: "油站反馈", description: `${order.orderNo} 需要企油通复核` } })}>
                 <AlertCircle size={16} />
@@ -105,14 +106,4 @@ function ReportKpi({ label, value }: { label: string; value: string }) {
       <strong>{value}</strong>
     </div>
   );
-}
-
-function incrementLabel(type: string) {
-  const labels: Record<string, string> = {
-    new_customer: "新客",
-    repeat: "复购",
-    campaign: "活动",
-    unclassified: "未分"
-  };
-  return labels[type] ?? type;
 }

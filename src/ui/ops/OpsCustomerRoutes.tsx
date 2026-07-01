@@ -1,5 +1,6 @@
 import { MapPinned } from "lucide-react";
 import { useAppState } from "../../state/AppState";
+import { enterpriseStatusLabel } from "../../domain/labels";
 import { formatCurrency } from "../../domain/metrics";
 
 export function OpsCustomerRoutes() {
@@ -20,7 +21,7 @@ export function OpsCustomerRoutes() {
                   <strong>{enterprise.name}</strong>
                   <span>{enterprise.contactName} · {formatCurrency(enterprise.monthlyFuelBudget)} 月油费</span>
                 </div>
-                <em>{enterprise.status}</em>
+                <em>{enterpriseStatusLabel(enterprise.status)}</em>
               </div>
               {enterprise.routes.map((route) => (
                 <div className="route-line" key={route.id}>

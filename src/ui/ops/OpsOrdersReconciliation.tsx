@@ -1,5 +1,6 @@
 import { AlertTriangle, Download, FileCheck2 } from "lucide-react";
 import { useState } from "react";
+import { abnormalStatusLabel, incrementTypeLabel, invoiceStatusLabel, reconciliationStatusLabel } from "../../domain/labels";
 import { classifyOrderIncrement, formatCurrency, formatNumber, getReconciliationDetail } from "../../domain/metrics";
 import { useAppState } from "../../state/AppState";
 
@@ -48,8 +49,8 @@ export function OpsOrdersReconciliation() {
                   </td>
                   <td>{order.fuelType}<br /><span className="muted">{formatNumber(order.liters)} L</span></td>
                   <td>{formatCurrency(order.paidAmount)}<br /><span className="muted">优惠 {formatCurrency(order.discountAmount)}</span></td>
-                  <td><span className="chip">{order.invoiceStatus}</span></td>
-                  <td><span className="chip good">{incrementLabel(classifyOrderIncrement(data, order))}</span></td>
+                  <td><span className="chip">{invoiceStatusLabel(order.invoiceStatus)}</span></td>
+                  <td><span className="chip good">{incrementTypeLabel(classifyOrderIncrement(data, order))}</span></td>
                 </tr>
               ))}
             </tbody>
@@ -69,7 +70,7 @@ export function OpsOrdersReconciliation() {
                 <div>
                   <strong>{event.type}</strong>
                   <p>{event.description}</p>
-                  <span className="chip">{event.status}</span>
+                  <span className="chip">{abnormalStatusLabel(event.status)}</span>
                 </div>
               </div>
             ))}
@@ -78,7 +79,7 @@ export function OpsOrdersReconciliation() {
         <div className="panel">
           <div className="panel-header">
             <h3>月度对账单</h3>
-            <span className="chip">{detail?.reconciliation.status}</span>
+            <span className="chip">{reconciliationStatusLabel(detail?.reconciliation.status ?? "")}</span>
           </div>
           <div className="panel-body recon-summary">
             <FileCheck2 size={34} />
@@ -95,14 +96,4 @@ export function OpsOrdersReconciliation() {
       </div>
     </section>
   );
-}
-
-function incrementLabel(type: string) {
-  const labels: Record<string, string> = {
-    new_customer: "新客增量",
-    repeat: "复购增量",
-    campaign: "活动增量",
-    unclassified: "未分类"
-  };
-  return labels[type] ?? type;
 }
